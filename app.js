@@ -4,6 +4,8 @@ var app        = express();
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 var Newtable = require('./models/newtable');
+var Ne = require('./models/ne');
+
 
 mongoose.Promise = Promise;
 
@@ -41,6 +43,42 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
 
+router.route('/newtable')
+
+    // create a bear (accessed at POST http://localhost:8080/api/bears)
+    .post(function(req, res) {
+    
+        var newtable = new Newtable({
+        	name : req.body.name,        
+            value : req.body.value
+        	}); 
+
+        newtable.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'created!' });
+        });
+
+    })
+
+    // create a bear (accessed at POST http://localhost:8080/api/bears)
+router.route('/n')    
+    .post(function(req, res) {
+    
+        var ne = new Ne({
+        	name : req.body.name,        
+            value : req.body.value
+        	}); 
+
+        ne.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'created!' });
+        });
+
+    })
 
 app.use('/api', router);
 //app.listen(port);
